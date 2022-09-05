@@ -1,7 +1,7 @@
 import AVFoundation
 import CoreImage
 
-final class AVVideoIOUnit: NSObject, AVIOUnit {
+public final class AVVideoIOUnit: NSObject, AVIOUnit {
     static let defaultAttributes: [NSString: NSObject] = [
         kCVPixelBufferPixelFormatTypeKey: NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange),
         kCVPixelBufferMetalCompatibilityKey: kCFBooleanTrue
@@ -9,7 +9,7 @@ final class AVVideoIOUnit: NSObject, AVIOUnit {
 
     let lockQueue = DispatchQueue(label: "com.haishinkit.HaishinKit.VideoIOComponent.lock")
 
-    var context: CIContext? {
+    public var context: CIContext? {
         didSet {
             for effect in effects {
                 effect.ciContext = context
@@ -18,7 +18,7 @@ final class AVVideoIOUnit: NSObject, AVIOUnit {
     }
 
     #if os(iOS) || os(macOS)
-    weak var drawable: NetStreamDrawable? {
+    public weak var drawable: NetStreamDrawable? {
         didSet {
             drawable?.orientation = orientation
         }
@@ -27,7 +27,7 @@ final class AVVideoIOUnit: NSObject, AVIOUnit {
     weak var drawable: NetStreamDrawable?
     #endif
 
-    var formatDescription: CMVideoFormatDescription? {
+    public var formatDescription: CMVideoFormatDescription? {
         didSet {
             decoder.formatDescription = formatDescription
         }
@@ -101,7 +101,7 @@ final class AVVideoIOUnit: NSObject, AVIOUnit {
         }
     }
 
-    var position: AVCaptureDevice.Position = .back
+    public var position: AVCaptureDevice.Position = .back
 
     var videoSettings: [NSObject: AnyObject] = AVMixer.defaultVideoSettings {
         didSet {
@@ -445,7 +445,7 @@ extension AVVideoIOUnit {
 
 extension AVVideoIOUnit: AVCaptureVideoDataOutputSampleBufferDelegate {
     // MARK: AVCaptureVideoDataOutputSampleBufferDelegate
-    func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    public func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard mixer?.useSampleBuffer(sampleBuffer: sampleBuffer, mediaType: AVMediaType.video) == true else {
             return
         }

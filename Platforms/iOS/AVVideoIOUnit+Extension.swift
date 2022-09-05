@@ -46,14 +46,14 @@ extension AVVideoIOUnit {
 
 extension AVVideoIOUnit: CaptureSessionDelegate {
     // MARK: CaptureSessionDelegate
-    func session(_ session: CaptureSessionConvertible, didSet size: CGSize) {
+    public func session(_ session: CaptureSessionConvertible, didSet size: CGSize) {
         lockQueue.async {
             self.encoder.width = Int32(size.width)
             self.encoder.height = Int32(size.height)
         }
     }
 
-    func session(_ session: CaptureSessionConvertible, didOutput pixelBuffer: CVPixelBuffer, presentationTime: CMTime) {
+    public func session(_ session: CaptureSessionConvertible, didOutput pixelBuffer: CVPixelBuffer, presentationTime: CMTime) {
         if !effects.isEmpty {
             // usually the context comes from HKView or MTLHKView
             // but if you have not attached a view then the context is nil

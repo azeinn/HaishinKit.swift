@@ -16,7 +16,7 @@ protocol AVMixerDelegate: AnyObject {
 }
 
 /// An object that mixies audio and video for streaming.
-public class AVMixer {
+open class AVMixer {
     /// The default fps for an AVMixer, value is 30.
     public static let defaultFPS: Float64 = 30
     /// The default videoSettings for an AVMixer.
@@ -181,7 +181,7 @@ public class AVMixer {
         return audioIO
     }()
 
-    lazy var videoIO: AVVideoIOUnit = {
+    public lazy var videoIO: AVVideoIOUnit = {
         var videoIO = AVVideoIOUnit()
         videoIO.mixer = self
         return videoIO
@@ -252,14 +252,14 @@ extension AVMixer {
 }
 
 extension AVMixer {
-    /// Starts decoding for video and audio data.
+    /// Starts encoding for video and audio data.
     public func startDecoding(_ audioEngine: AVAudioEngine?) {
         mediaLink.startRunning()
         audioIO.startDecoding(audioEngine)
         videoIO.startDecoding()
     }
 
-    /// Stop decoding.
+    /// Stop encoding.
     public func stopDecoding() {
         mediaLink.stopRunning()
         audioIO.stopDecoding()
