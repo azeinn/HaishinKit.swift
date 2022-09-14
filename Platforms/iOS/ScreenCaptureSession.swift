@@ -125,14 +125,14 @@ open class ScreenCaptureSession: NSObject, CaptureSessionConvertible {
         let cgctx: CGContext = UIGraphicsGetCurrentContext()!
         DispatchQueue.main.sync {
             UIGraphicsPushContext(cgctx)
-            if let shared: UIApplication = shared {
-                for window: UIWindow in shared.windows {
-                    window.drawHierarchy(
-                        in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height),
-                        afterScreenUpdates: self.afterScreenUpdates
-                    )
-                }
-            }
+//            if let shared: UIApplication = shared {
+//                for window: UIWindow in shared.windows {
+//                    window.drawHierarchy(
+//                        in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height),
+//                        afterScreenUpdates: self.afterScreenUpdates
+//                    )
+//                }
+//            }
             if let viewToCapture: UIView = viewToCapture {
                 viewToCapture.drawHierarchy(
                     in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height),
